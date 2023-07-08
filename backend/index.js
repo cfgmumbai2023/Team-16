@@ -1,13 +1,11 @@
 const express = require('express');
 const app = express();
 const authRoutes = require('./admin/routes/authRoutes');
-// const teacherAuthRoutes = require('./teacher/routes/authRoutes');
-// const teacherDashboardRoutes = require('./teacher/routes/dashboardRoutes');
+const studentRoutes = require('./admin/routes/studentRoutes')
 
 app.use(express.json());
 app.use('/login', authRoutes);
-// app.use('/teacher/auth', teacherAuthRoutes);
-// app.use('/teacher/dashboard', teacherDashboardRoutes);
+app.use('/student', studentRoutes);
 
 const PORT = 8080;
 app.listen(PORT, () => {
