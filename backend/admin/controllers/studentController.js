@@ -14,13 +14,14 @@ module.exports = {
         }
         else {
             connection.query(
-                'SELECT school_id FROM teacher WHERE id = ?',
+                'SELECT school_id, CLASS_NAME FROM teacher WHERE id = ?',
                 [teach],
                 (err, result) => {
                     let school = result[0].school_id
+                    let clas = result[0].CLASS_ID
                     connection.query(
-                        'SELECT * FROM student WHERE school_id = ?',
-                        [school],
+                        'SELECT * FROM student WHERE school_id = ? AND class = ?',
+                        [school, clas],
                         (er, re) => {
                             res.json(re)
                         }
@@ -37,6 +38,11 @@ module.exports = {
             (err, result) => {
                 res.json(result[0])
             }
+        )
+    },
+    // TODO: imple create endpoint
+    createStudent: (req, res) => {
+        connection.query(
         )
     }
 }
