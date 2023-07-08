@@ -3,6 +3,8 @@ import './App.css';
 import {Route, Routes} from "react-router";
 import {HomePage} from "./pages/HomePage";
 import {LoginPage} from "./pages/LoginPage";
+import "@progress/kendo-theme-material/dist/all.css";
+import "hammerjs";
 
 function App() {
   return (
