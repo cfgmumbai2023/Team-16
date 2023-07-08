@@ -6,14 +6,17 @@ import './App.css';
 import "@progress/kendo-theme-material/dist/all.css";
 import "hammerjs";
 import { HomePage } from './pages/HomePage';
+import TeacherLogin from "./pages/teacher-login/TeacherLogin";
 
 const App = () => {
   return (
     <div>
         <Routes>
+          <Route path="/" element={<Login />}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
-          <Route path="/home" element={<HomePage/>}/>
+          <Route path="/home/:tab" element={<HomePage/>}/>
+          <Route path="/teacher-login" element={<TeacherLogin/>}/>
         </Routes>
     </div>
   )

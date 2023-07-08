@@ -16,7 +16,7 @@ module.exports = {
           const user = results[0];
           if (password === user.password) {
             const token = generateToken({ userId: user.id });
-            res.json({ token });
+            res.json({ token, user });
           } else {
             res.status(401).json({ message: 'Invalid email or password' });
           }
@@ -39,7 +39,7 @@ module.exports = {
                     const user = results[0];
                     if (password === user.password) {
                         const token = generateToken({ userId: user.id });
-                        res.json({ token });
+                        res.json({ token, user });
                     } else {
                         res.status(401).json({ message: 'Invalid email or password' });
                     }
