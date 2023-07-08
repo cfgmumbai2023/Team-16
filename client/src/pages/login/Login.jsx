@@ -34,7 +34,9 @@ const Login = () => {
               <Link to="/register">
                 <button>Admin Login</button>
                </Link>
+              <Link to="/teacher-login">
               <button>Teacher Login</button>
+              </Link>
             </div>
           </form>
         </div>
