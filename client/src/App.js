@@ -1,21 +1,22 @@
-import logo from './logo.svg';
+import React from 'react'
+import Login from "./pages/login/Login"
+import Register from "./pages/register/Register"
+import {BrowserRouter as Router, Routes,Route} from "react-router-dom";
 import './App.css';
-import {Route, Routes} from "react-router";
-import {HomePage} from "./pages/HomePage";
-import {LoginPage} from "./pages/LoginPage";
 import "@progress/kendo-theme-material/dist/all.css";
 import "hammerjs";
+import { HomePage } from './pages/HomePage';
 
-function App() {
+const App = () => {
   return (
-      <div className="App">
+    <div>
         <Routes>
-          <Route index element={<LoginPage />} />
-          <Route exact path="/home" element={<HomePage />} />
-          <Route exact path="/login" element={<LoginPage/>} />
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/register" element={<Register/>}/>
+          <Route path="/home" element={<HomePage/>}/>
         </Routes>
-      </div>
-  );
+    </div>
+  )
 }
 
-export default App;
+export default App
