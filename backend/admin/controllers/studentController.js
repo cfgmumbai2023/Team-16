@@ -28,5 +28,15 @@ module.exports = {
                 }
             )
         }
+    },
+    getStudentById: (req, res) => {
+        let id = req.params.studentId
+        connection.query(
+            'SELECT * FROM student WHERE child_id = ?',
+            [id],
+            (err, result) => {
+                res.json(result[0])
+            }
+        )
     }
 }
