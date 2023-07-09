@@ -25,10 +25,12 @@ const Login = () => {
             {/* <input type="text" placeholder="Username" /> */}
             {/* <input type="password" placeholder="Password" /> */}
             <div className="division">
-              <Link to="/register">
+              <Link to="/teacher-login">
                 <div class="button">
                   <span>TEACHER LOGIN</span>
                 </div>
+              </Link>
+              <Link to="/register">
                 <div class="button">
                   <span>ADMIN LOGIN</span>
                 </div>
