@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 const ChildForm = () => {
+  const [childId, setChildId] = useState('');
   const [childName, setChildName] = useState('');
   const [joiningAge, setJoiningAge] = useState('');
   const [currentAge, setCurrentAge] = useState('');
@@ -14,7 +15,6 @@ const ChildForm = () => {
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
   const [relativeContact, setRelativeContact] = useState('');
-  const [standardAtNonSpecialSchool, setStandardAtNonSpecialSchool] = useState('');
   const [baselineConsolidated, setBaselineConsolidated] = useState('');
   const [endlineConsolidated, setEndlineConsolidated] = useState('');
   const [twoWords, setTwoWords] = useState('');
@@ -28,6 +28,31 @@ const ChildForm = () => {
   const [baselinePercentage, setBaselinePercentage] = useState('');
   const [endlinePercentage, setEndlinePercentage] = useState('');
   const [status, setStatus] = useState('');
+
+  const handleBaselinePercentageChange = (e) => {
+    const inputPercentage = e.target.value;
+    
+    if (inputPercentage >= 0 && inputPercentage <= 100) {
+      setBaselinePercentage(inputPercentage);
+    }
+  };
+
+  const handleEndlinePercentageChange = (e) => {
+    const newPercentage = parseInt(e.target.value);
+    if (newPercentage >= 0 && newPercentage <= 100) {
+      setEndlinePercentage(newPercentage);
+    } else {
+      setEndlinePercentage('')
+      setStatus('')
+    }
+    
+    if (newPercentage >= 80) {
+      setStatus('Pass');
+    } 
+    if (newPercentage < 80) {
+      setStatus('Fail');
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -63,6 +88,7 @@ const ChildForm = () => {
     };
 
     console.log('Form submitted:', {
+      childId,
       childName,
       joiningAge,
       currentAge,
@@ -76,7 +102,6 @@ const ChildForm = () => {
       address,
       phone,
       relativeContact,
-      standardAtNonSpecialSchool,
       baselineConsolidated,
       endlineConsolidated,
       twoWords,
@@ -97,6 +122,17 @@ const ChildForm = () => {
     <div>
     <h1 className='text-3xl my-8'>Student entry form</h1>
     <form  className='text-black text-left px-8 grid grid-cols-2' onSubmit={handleSubmit}>
+    <div className='py-4 text-black'>
+        <label className='pr-8'>
+          Child ID:
+        </label>
+          <input className='text-black border-2'
+            type="text"
+            value={childId}
+            onChange={(e) => setChildId(e.target.value)}
+            required
+          />
+      </div>
       <div className='py-4 text-black'>
         <label className='pr-8'>
           Child Name:
@@ -105,6 +141,7 @@ const ChildForm = () => {
             type="text"
             value={childName}
             onChange={(e) => setChildName(e.target.value)}
+            required
           />
       </div>
       <div className='py-4 text-black'>
@@ -114,6 +151,7 @@ const ChildForm = () => {
           className='text-black border-2'
           value={currentAge}
           onChange={(e) => setCurrentAge(e.target.value)}
+          required
         >
           <option value="">Select Age</option>
           {Array.from({ length: 14 }, (_, index) => index + 5).map((age) => (
@@ -128,7 +166,9 @@ const ChildForm = () => {
           className='text-black border-2'
           value={joiningAge}
           onChange={(e) => setJoiningAge(Array.from(e.target.selectedOptions, option => option.value))}
+          required
         >
+          <option value="">Select Age</option>
           {Array.from({ length: 14 }, (_, index) => index + 5).map((age) => (
             <option key={age} value={age}>{age}</option>
           ))}
@@ -141,6 +181,7 @@ const ChildForm = () => {
           className='text-black border-2'
           value={gender}
           onChange={(e) => setGender(e.target.value)}
+          required
         >
           <option value="">Select Gender</option>
           <option value="M">M</option>
@@ -156,6 +197,7 @@ const ChildForm = () => {
             className='text-black border-2'
             value={level}
             onChange={(e) => setLevel(e.target.value)}
+            required
           >
             <option value="">Select Level</option>
             <option value="1">1</option>
@@ -172,7 +214,9 @@ const ChildForm = () => {
             className='text-black border-2'
             value={disability}
             onChange={(e) => setDisability(e.target.value)}
+            required
           >
+              <option value="">Select Disability</option>
               <option value="adhd">ADHD</option>
               <option value="downs">Down's Syndrome</option>
               <option value="palsy">Cerebral Palsy</option>
@@ -186,6 +230,7 @@ const ChildForm = () => {
           className='text-black border-2'
           value={severity}
           onChange={(e) => setSeverity(e.target.value)}
+          required
         >
           <option value="">Select Severity</option>
           {Array.from({ length: 10 }, (_, index) => index + 1).map((value) => (
@@ -201,6 +246,7 @@ const ChildForm = () => {
             type="date"
             value={dob}
             onChange={(e) => setDob(e.target.value)}
+            required
           />
       </div>
       <div className='py-4 text-black'>
@@ -212,6 +258,7 @@ const ChildForm = () => {
             pattern="[0-9]{4}-[0-9]{4}-[0-9]{4}"
             value={aadharNumber}
             onChange={(e) => setAadharNumber(e.target.value)}
+            required
           />
       </div>
       <div className='py-4 text-black'>
@@ -221,6 +268,7 @@ const ChildForm = () => {
             type="text"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
+            required
           />
         </label>
       </div>
@@ -229,8 +277,10 @@ const ChildForm = () => {
           Phone:
           <input className='text-black border-2'
             type="text"
+            pattern="[0-9]{10}"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
+            required
           />
         </label>
       </div>
@@ -239,18 +289,10 @@ const ChildForm = () => {
           Relative Contact:
           <input className='text-black border-2'
             type="text"
+            pattern="[0-9]{10}"
             value={relativeContact}
             onChange={(e) => setRelativeContact(e.target.value)}
-          />
-        </label>
-      </div>
-      <div className='py-4 text-black'>
-        <label>
-          Standard at Non-Special School:
-          <input className='text-black border-2'
-            type="text"
-            value={standardAtNonSpecialSchool}
-            onChange={(e) => setStandardAtNonSpecialSchool(e.target.value)}
+            required
           />
         </label>
       </div>
@@ -261,6 +303,7 @@ const ChildForm = () => {
             type="text"
             value={baselineConsolidated}
             onChange={(e) => setBaselineConsolidated(e.target.value)}
+            required
           />
         </label>
       </div>
@@ -271,96 +314,139 @@ const ChildForm = () => {
             type="text"
             value={endlineConsolidated}
             onChange={(e) => setEndlineConsolidated(e.target.value)}
+            required
           />
         </label>
       </div>
       <div className='py-4 text-black'>
-        <label>
-          Two Words:
-          <input className='text-black border-2'
-            type="text"
-            value={twoWords}
-            onChange={(e) => setTwoWords(e.target.value)}
-          />
-        </label>
+      <label>
+        Two Words:
+        <select className='text-black border-2'
+          value={twoWords}
+          onChange={(e) => setTwoWords(e.target.value)}
+          required
+        >
+          <option value="">Select</option>
+          <option value="Y">Y</option>
+          <option value="N">N</option>
+        </select>
+      </label>
       </div>
       <div className='py-4 text-black'>
-        <label>
-          Vocabulary:
-          <input className='text-black border-2'
-            type="text"
-            value={vocabulary}
-            onChange={(e) => setVocabulary(e.target.value)}
-          />
-        </label>
+      <label>
+        Vocabulary:
+        <select className='text-black border-2'
+          value={vocabulary}
+          onChange={(e) => setVocabulary(e.target.value)}
+          required
+        >
+          <option value="">Select</option>
+          {Array.from({ length: 10 }, (_, index) => (
+            <option key={index + 1} value={index + 1}>{index + 1}</option>
+          ))}
+        </select>
+      </label>
       </div>
       <div className='py-4 text-black'>
-        <label>
-          Traditional and Modern Game:
-          <input className='text-black border-2'
-            type="text"
-            value={traditionalAndModernGame}
-            onChange={(e) => setTraditionalAndModernGame(e.target.value)}
-          />
-        </label>
+      <label>
+        Traditional and Modern Game:
+        <select className='text-black border-2'
+          value={traditionalAndModernGame}
+          onChange={(e) => setTraditionalAndModernGame(e.target.value)}
+          required
+        >
+          <option value="">Select</option>
+          {Array.from({ length: 10 }, (_, index) => (
+            <option key={index + 1} value={index + 1}>{index + 1}</option>
+          ))}
+        </select>
+      </label>
       </div>
       <div className='py-4 text-black'>
-        <label>
-          Mumbai Map Topography:
-          <input className='text-black border-2'
-            type="text"
-            value={mumbaiMapTopography}
-            onChange={(e) => setMumbaiMapTopography(e.target.value)}
-          />
-        </label>
+      <label>
+        Mumbai Map Topography:
+        <select className='text-black border-2'
+          value={mumbaiMapTopography}
+          onChange={(e) => setMumbaiMapTopography(e.target.value)}
+          required
+        >
+          <option value="">Select</option>
+          {Array.from({ length: 10 }, (_, index) => (
+            <option key={index + 1} value={index + 1}>{index + 1}</option>
+          ))}
+        </select>
+      </label>
       </div>
       <div className='py-4 text-black'>
-        <label>
-          Lemon Sherbat Making:
-          <input className='text-black border-2'
-            type="text"
-            value={lemonSherbatMaking}
-            onChange={(e) => setLemonSherbatMaking(e.target.value)}
-          />
-        </label>
+      <label>
+        Lemon Sherbat Making:
+        <select className='text-black border-2'
+          value={lemonSherbatMaking}
+          onChange={(e) => setLemonSherbatMaking(e.target.value)}
+          required
+        >
+          <option value="">Select</option>
+          {Array.from({ length: 10 }, (_, index) => (
+            <option key={index + 1} value={index + 1}>{index + 1}</option>
+          ))}
+        </select>
+      </label>
       </div>
       <div className='py-4 text-black'>
-        <label>
-          Stamping the Design:
-          <input className='text-black border-2'
-            type="text"
-            value={stampingTheDesign}
-            onChange={(e) => setStampingTheDesign(e.target.value)}
-          />
-        </label>
+      <label>
+        Stamping the Design:
+        <select className='text-black border-2'
+          value={stampingTheDesign}
+          onChange={(e) => setStampingTheDesign(e.target.value)}
+          required
+        >
+          <option value="">Select</option>
+          {Array.from({ length: 10 }, (_, index) => (
+            <option key={index + 1} value={index + 1}>{index + 1}</option>
+          ))}
+        </select>
+      </label>
       </div>
       <div className='py-4 text-black'>
-        <label>
-          Fraction:
-          <input className='text-black border-2'
-            type="text"
-            value={fraction}
-            onChange={(e) => setFraction(e.target.value)}
-          />
-        </label>
+      <label>
+        Fraction:
+        <select className='text-black border-2'
+          value={fraction}
+          onChange={(e) => setFraction(e.target.value)}
+          required
+        >
+          <option value="">Select</option>
+          {Array.from({ length: 10 }, (_, index) => (
+            <option key={index + 1} value={index + 1}>{index + 1}</option>
+          ))}
+        </select>
+      </label>
       </div>
       <div className='py-4 text-black'>
-        <label>
-          Arithmetic:
-          <input className='text-black border-2'
-            type="text"
-            value={arithmetic}
-            onChange={(e) => setArithmetic(e.target.value)}
-          />
-        </label>
+      <label>
+        Arithmetic:
+        <select className='text-black border-2'
+          value={arithmetic}
+          onChange={(e) => setArithmetic(e.target.value)}
+          required
+        >
+          <option value="">Select</option>
+          {Array.from({ length: 10 }, (_, index) => (
+            <option key={index + 1} value={index + 1}>{index + 1}</option>
+          ))}
+        </select>
+      </label>
       </div>
       <div className='py-4 text-black'>
         <label>
           Baseline Percentage:
           <input className='text-black border-2'
-            type="text"
+            type="number"
             value={baselinePercentage}
-            onChange={(e) => setBaselinePercentage(e.target.value)}
+            onChange={handleBaselinePercentageChange}
+            placeholder='No need to add % sign'
+            size={30}
+            required
           />
         </label>
       </div>
@@ -368,9 +454,12 @@ const ChildForm = () => {
         <label>
           Endline Percentage:
           <input className='text-black border-2'
-            type="text"
+            type="number"
             value={endlinePercentage}
-            onChange={(e) => setEndlinePercentage(e.target.value)}
+            onChange={handleEndlinePercentageChange}
+            placeholder='No need to add % sign'
+            size={30}
+            required
           />
         </label>
       </div>
@@ -380,7 +469,7 @@ const ChildForm = () => {
           <input className='text-black border-2'
             type="text"
             value={status}
-            onChange={(e) => setStatus(e.target.value)}
+            readOnly          
           />
         </label>
       </div>

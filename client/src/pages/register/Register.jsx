@@ -8,16 +8,15 @@ const Register = () => {
         <div className="left">
           <h1>Urmi</h1>
           <h2>FOUNDATION</h2>
-
-          <p>
-            We stand for special ones.
-          </p>
+          <p>We stand for special ones.</p>
           <Link to="/login">
-          <button id="admin_dash">Go To Admin Dashboard</button>
+            <button id="admin_dash">GO TO ADMIN DASHBOARD  
+            <i class="gg-arrow-right"></i>
+            </button>
           </Link>
         </div>
         <div className="right">
-          <h1>Register Teacher</h1>
+          <h1>REGISTER TEACHER</h1>
           <form>
             <input type="text" placeholder="Username" />
             <input type="email" placeholder="Email" />
