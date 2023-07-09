@@ -29,7 +29,6 @@ const TeacherLogin = () => {
       <div className="card">
         <div className="left">
           <h1>Urmi</h1>
-          <h2>FOUNDATION</h2>
 
           <p>
             We stand for special ones.

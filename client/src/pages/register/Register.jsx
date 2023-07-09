@@ -7,7 +7,6 @@ const Register = () => {
       <div className="card">
         <div className="left">
           <h1>Urmi</h1>
-          <h2>FOUNDATION</h2>
           <p>We stand for special ones.</p>
           <Link to="/login">
             <button id="admin_dash">GO TO ADMIN DASHBOARD  
