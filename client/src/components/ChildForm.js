@@ -31,7 +31,37 @@ const ChildForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Submit the form data to the backend or perform further actions
+    // TODO: this whole thing messed up
+    const studentData = {
+      child_name: childName,
+      joining_age: joiningAge,
+      current_age: currentAge,
+      gender: gender,
+      level: level,
+      "class": classValue,
+      disability: disability,
+      severity: severity,
+      DOB: dob,
+      aadhar_number: aadharNumber,
+      address: address,
+      phone: phone,
+      relative_contact: relativeContact,
+      STANDARD_AT_NON_SPECIAL_SCHOOL: standardAtNonSpecialSchool,
+      BASELINE_CONSOLIDATED: baselineConsolidated,
+      ENDLINE_CONSOLIDATED: endlineConsolidated,
+      two_words: twoWords,
+      vocabulary: vocabulary,
+      TRADITIONAL_AND_MODERN_GAME: traditionalAndModernGame,
+      MUMBAI_MAP_TOPOGRAPHY: mumbaiMapTopography,
+      LEMON_SHERRBAT_MAKING: lemonSherbatMaking,
+      STAMPING_THE_DESIGN: stampingTheDesign,
+      fraction: fraction,
+      ARITHMETIC: arithmetic,
+      BASELINE_PERCENTAGE: baselinePercentage,
+      ENDLINE_PERCENTAGE: endlinePercentage,
+      status: status
+    };
+
     console.log('Form submitted:', {
       childName,
       joiningAge,

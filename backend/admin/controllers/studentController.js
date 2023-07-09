@@ -18,7 +18,7 @@ module.exports = {
                 [teach],
                 (err, result) => {
                     let school = result[0].school_id
-                    let clas = result[0].CLASS_ID
+                    let clas = result[0].CLASS_NAME
                     connection.query(
                         'SELECT * FROM student WHERE school_id = ? AND class = ?',
                         [school, clas],
@@ -40,9 +40,34 @@ module.exports = {
             }
         )
     },
-    // TODO: imple create endpoint
     createStudent: (req, res) => {
+        const student = req.body
+        student.child_id = makeId(8)
         connection.query(
+            'DESCRIBE student',
+            (err, result) => {
+                const columns = result.map(result => result.Field);
+                const insertColumns = columns.join(', ');
+                const insertData = columns.map(column => student[column]).join(', ');
+                connection.query(
+                    `INSERT INTO student (${insertColumns}) VALUES (${insertData})`,
+                    (er, resul) => {
+                        res.json("Op vai")
+                    }
+                )
+            }
         )
     }
+}
+
+function makeId(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        counter += 1;
+    }
+    return result;
 }
