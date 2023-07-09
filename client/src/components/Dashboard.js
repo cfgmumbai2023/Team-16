@@ -202,10 +202,10 @@ function Dashboard() {
 
     return (
         <div className="App">
-            <h1 style={{ textAlign: 'center' }}>Animated Visualization</h1>
+            <h1 className="text-3xl" style={{ textAlign: 'center' }}>Welcome to your dashboard</h1>
             {
                 students && (
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <div className='grid grid-cols-2'>
                         <div style={{ marginRight: '20px' }}>
                             <BarChart />
                         </div>
